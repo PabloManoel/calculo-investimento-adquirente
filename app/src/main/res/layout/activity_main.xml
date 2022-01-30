@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txt_mensalidade_conta"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="20dp"
+        android:width="100dp"
+        android:gravity="center_vertical"
+        android:text="Mesalidade da conta"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/mensalidade_conta_atual_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banking_blank_txt" />
+
+    <TextView
+        android:id="@+id/pix_mensal_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:width="100dp"
+        android:gravity="center_vertical"
+        android:text="Pix mensal"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/pix_mensal_atual_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_mensalidade_conta" />
+
+    <TextView
+        android:id="@+id/portal_integrado_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:width="100dp"
+        android:gravity="center_vertical"
+        android:text="Portal integrado"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/portal_integrado_atual_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pix_mensal_txt" />
+
+    <TextView
+        android:id="@+id/conciliacao_vendas_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:width="100dp"
+        android:gravity="center_vertical"
+        android:text="Conciliação de vendas"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/conciliacao_vendas_atual_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portal_integrado_txt" />
+
+    <EditText
+        android:id="@+id/mensalidade_conta_stone_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/mensalidade_conta_total"
+        app:layout_constraintTop_toBottomOf="@+id/stone_txt" />
+
+    <EditText
+        android:id="@+id/mensalidade_conta_total"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stone_txt" />
+
+    <EditText
+        android:id="@+id/pix_mensal_total_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mensalidade_conta_total" />
+
+    <EditText
+        android:id="@+id/portal_integrado_total_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pix_mensal_total_id" />
+
+    <EditText
+        android:id="@+id/conciliacao_vendas_total_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portal_integrado_total_id" />
+
+    <EditText
+        android:id="@+id/pix_mensal_stone_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/pix_mensal_total_id"
+        app:layout_constraintTop_toBottomOf="@+id/mensalidade_conta_stone_id" />
+
+    <EditText
+        android:id="@+id/portal_integrado_stone_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/portal_integrado_total_id"
+        app:layout_constraintTop_toBottomOf="@+id/pix_mensal_stone_id" />
+
+    <EditText
+        android:id="@+id/conciliacao_vendas_stone_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/conciliacao_vendas_total_id"
+        app:layout_constraintTop_toBottomOf="@+id/portal_integrado_stone_id" />
+
+    <EditText
+        android:id="@+id/mensalidade_conta_atual_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/mensalidade_conta_stone_id"
+        app:layout_constraintTop_toBottomOf="@+id/atual_txt" />
+
+    <EditText
+        android:id="@+id/pix_mensal_atual_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/pix_mensal_stone_id"
+        app:layout_constraintTop_toBottomOf="@+id/mensalidade_conta_atual_id" />
+
+    <EditText
+        android:id="@+id/portal_integrado_atual_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/portal_integrado_stone_id"
+        app:layout_constraintTop_toBottomOf="@+id/pix_mensal_atual_id" />
+
+    <EditText
+        android:id="@+id/conciliacao_vendas_atual_id"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/conciliacao_vendas_stone_id"
+        app:layout_constraintTop_toBottomOf="@+id/portal_integrado_atual_id" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="400dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="480dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="630dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="380dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="280dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="180dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="40dp" />
+
+    <TextView
+        android:id="@+id/atual_txt"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:text="Atual"
+        app:layout_constraintEnd_toStartOf="@+id/stone_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/banking_blank_txt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/atual_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/stone_txt"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:text="Stone"
+        app:layout_constraintEnd_toStartOf="@+id/total_txt"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/total_txt"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center_horizontal"
+        android:text="Total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/banking_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="-90"
+        android:text="BANKING"
+        app:layout_constraintBottom_toBottomOf="@+id/conciliacao_vendas_txt"
+        app:layout_constraintTop_toTopOf="@+id/txt_mensalidade_conta"
+        tools:layout_editor_absoluteX="11dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="200dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
