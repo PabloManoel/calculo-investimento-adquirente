@@ -499,14 +499,14 @@
         android:id="@+id/banking_txt8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="clip_horizontal|clip_vertical"
         android:rotation="-90"
         android:text="PAGAMENTOS"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/conciliacao_vendas_txt11"
         app:layout_constraintEnd_toStartOf="@+id/txt_mensalidade_conta8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_mensalidade_conta8"
-        app:layout_constraintVertical_bias="0.395" />
+        app:layout_constraintTop_toTopOf="@+id/txt_mensalidade_conta8" />
 
     <EditText
         android:id="@+id/vezes_2_6_share_id"
