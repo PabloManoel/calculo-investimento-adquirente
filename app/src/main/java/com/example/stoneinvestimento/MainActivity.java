@@ -130,6 +130,185 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setDebitPaymentEvent(){
+        debitoAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(debitoAtual);
+                comparePaymentAccounts(tpv, debitoShare, debitoAtual, debitoStone, debitoTotal);
+                validateSubTotal(debitoTotal);
+            }
+        });
+
+        debitoStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(debitoStone);
+                comparePaymentAccounts(tpv, debitoShare, debitoAtual, debitoStone, debitoTotal);
+                validateSubTotal(debitoTotal);
+            }
+        });
+
+        debitoShare.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(debitoShare);
+                comparePaymentAccounts(tpv, debitoShare, debitoAtual, debitoStone, debitoTotal);
+                validateSubTotal(debitoTotal);
+            }
+        });
+    }
+
+    private void setCreditAtSightEvent(){
+        creditoAVistaAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(creditoAVistaAtual);
+                comparePaymentAccounts(tpv, creditoAVistaShare, creditoAVistaAtual, creditoAVistaStone, creditoAVistaTotal);
+                validateSubTotal(creditoAVistaTotal);
+            }
+        });
+
+        creditoAVistaStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(creditoAVistaStone);
+                comparePaymentAccounts(tpv, creditoAVistaShare, creditoAVistaAtual, creditoAVistaStone, creditoAVistaTotal);
+                validateSubTotal(creditoAVistaTotal);
+            }
+        });
+
+        creditoAVistaShare.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(creditoAVistaShare);
+                comparePaymentAccounts(tpv, creditoAVistaShare, creditoAVistaAtual, creditoAVistaStone, creditoAVistaTotal);
+                validateSubTotal(creditoAVistaTotal);
+            }
+        });
+    }
+
+    private void setTimes2p6Event(){
+        vezes2p6Atual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes2p6Atual);
+                comparePaymentAccounts(tpv, vezes2p6Share, vezes2p6Atual, vezes2p6Stone, vezes2p6Total);
+                validateSubTotal(vezes2p6Total);
+            }
+        });
+
+        vezes2p6Stone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes2p6Stone);
+                comparePaymentAccounts(tpv, vezes2p6Share, vezes2p6Atual, vezes2p6Stone, vezes2p6Total);
+                validateSubTotal(vezes2p6Total);
+            }
+        });
+
+        vezes2p6Share.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes2p6Share);
+                comparePaymentAccounts(tpv, vezes2p6Share, vezes2p6Atual, vezes2p6Stone, vezes2p6Total);
+                validateSubTotal(vezes2p6Total);
+            }
+        });
+    }
+
+    private void setTimes7p12Event(){
+        vezes7p12Atual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes7p12Atual);
+                comparePaymentAccounts(tpv, vezes7p12Share, vezes7p12Atual, vezes7p12Stone, vezes7p12Total);
+                validateSubTotal(vezes7p12Total);
+            }
+        });
+
+        vezes7p12Stone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes7p12Stone);
+                comparePaymentAccounts(tpv, vezes7p12Share, vezes7p12Atual, vezes7p12Stone, vezes7p12Total);
+                validateSubTotal(vezes7p12Total);
+            }
+        });
+
+        vezes7p12Share.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(vezes7p12Share);
+                comparePaymentAccounts(tpv, vezes7p12Share, vezes7p12Atual, vezes7p12Stone, vezes7p12Total);
+                validateSubTotal(vezes7p12Total);
+            }
+        });
+    }
+
+    private void setAntecipacaoEvent(){
+        antecipacaoAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(antecipacaoAtual);
+                comparePaymentAccounts(tpv, antecipacaoShare, antecipacaoAtual, antecipacaoStone, antecipacaoTotal);
+                validateSubTotal(antecipacaoTotal);
+            }
+        });
+
+        antecipacaoStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(antecipacaoStone);
+                comparePaymentAccounts(tpv, antecipacaoShare, antecipacaoAtual, antecipacaoStone, antecipacaoTotal);
+                validateSubTotal(antecipacaoTotal);
+            }
+        });
+
+        antecipacaoShare.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(antecipacaoShare);
+                comparePaymentAccounts(tpv, antecipacaoShare, antecipacaoAtual, antecipacaoStone, antecipacaoTotal);
+                validateSubTotal(antecipacaoTotal);
+            }
+        });
+    }
+
+    private void setMensalidadeEvent(){
+        mensalidadeAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(mensalidadeAtual);
+                comparePaymentAccounts(tpv, mensalidadeShare, mensalidadeAtual, mensalidadeStone, mensalidadeTotal);
+                validateSubTotal(mensalidadeTotal);
+            }
+        });
+
+        mensalidadeStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(mensalidadeStone);
+                comparePaymentAccounts(tpv, mensalidadeShare, mensalidadeAtual, mensalidadeStone, mensalidadeTotal);
+                validateSubTotal(mensalidadeTotal);
+            }
+        });
+
+        mensalidadeShare.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(mensalidadeShare);
+                comparePaymentAccounts(tpv, mensalidadeShare, mensalidadeAtual, mensalidadeStone, mensalidadeTotal);
+                validateSubTotal(mensalidadeTotal);
+            }
+        });
+    }
+
+    private void comparePaymentAccounts(EditText tpv, EditText share, EditText current, EditText stone, EditText total){
+        Float result = calculatePayments(tpv, share, current, stone);
+        addResultToTotalField(result, total);
+    }
+
     private void compareBankingAccounts(EditText atual, EditText stone, EditText total){
         Float result = subtract(atual, stone);
         addResultToTotalField(result, total);
@@ -157,6 +336,13 @@ public class MainActivity extends AppCompatActivity {
         setPixMensalEvent();
         setPortalIntegradoEvent();
         setConciliacaoVendasEvent();
+
+        setDebitPaymentEvent();
+        setCreditAtSightEvent();
+        setTimes2p6Event();
+        setTimes7p12Event();
+        setAntecipacaoEvent();
+        setMensalidadeEvent();
     }
 
     @Override
@@ -186,9 +372,9 @@ public class MainActivity extends AppCompatActivity {
         debitoShare = (EditText) findViewById(R.id.debito_share_id);
 
         creditoAVistaAtual = (EditText) findViewById(R.id.credito_a_vista_atual_id);
-        creditoAVistaStone = (EditText) findViewById(R.id.debito_stone_id);
-        creditoAVistaTotal = (EditText) findViewById(R.id.debito_total_id);
-        creditoAVistaShare = (EditText) findViewById(R.id.debito_share_id);
+        creditoAVistaStone = (EditText) findViewById(R.id.credito_a_vista_stone_id);
+        creditoAVistaTotal = (EditText) findViewById(R.id.credito_a_vista_total_id);
+        creditoAVistaShare = (EditText) findViewById(R.id.credito_a_vista_share_id);
 
         vezes2p6Atual = (EditText) findViewById(R.id.vezes_2_6_atual_id);
         vezes2p6Stone = (EditText) findViewById(R.id.vezes_2_6_stone_id);
@@ -213,9 +399,6 @@ public class MainActivity extends AppCompatActivity {
         tpv = (EditText) findViewById(R.id.tpv_id);
         validateInputIsNotNull(tpv);
 
-
-
-
         setEvents();
     }
 
@@ -226,5 +409,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void addResultToTotalField(Float sum, EditText totalField){
         totalField.setText(sum.toString());
+    }
+
+    private Float calculatePayments(EditText tpv, EditText share, EditText current, EditText stone){
+        Float shareValue = (Float.parseFloat(share.getText().toString()) * Float.parseFloat(tpv.getText().toString())) / 100;
+
+        Float currentValue = (Float.parseFloat(current.getText().toString()) * shareValue) / 100;
+
+        Float stoneValue = (Float.parseFloat(stone.getText().toString()) * shareValue) / 100;
+
+        return currentValue - stoneValue;
     }
 }
