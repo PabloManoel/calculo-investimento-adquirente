@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText vezes7p12Atual;
     private EditText vezes7p12Stone;
     private EditText vezes7p12Total;
-    private EditText vezes7p12Sharel;
+    private EditText vezes7p12Share;
     private EditText antecipacaoAtual;
     private EditText antecipacaoStone;
     private EditText antecipacaoTotal;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mensalidadeStone;
     private EditText mensalidadeTotal;
     private EditText mensalidadeShare;
+    private EditText tpv;
 
     private void setMensalidadeContaEvent(){
         mensalidadeContaAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -129,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void compareBankingAccounts(EditText atual, EditText stone, EditText total){
         Float result = subtract(atual, stone);
         addResultToTotalField(result, total);
@@ -145,13 +145,12 @@ public class MainActivity extends AppCompatActivity {
             subtotal.setTextColor(Color.BLACK);
         }
     }
+
     private void validateInputIsNotNull(EditText input){
         if (input.getText().toString().trim().length() == 0) {
             input.setText("0");
         }
     }
-
-
 
     private void setEvents(){
         setMensalidadeContaEvent();
@@ -199,8 +198,7 @@ public class MainActivity extends AppCompatActivity {
         vezes7p12Atual = (EditText) findViewById(R.id.vezes_7_12_atual_id);
         vezes7p12Stone = (EditText) findViewById(R.id.vezes_7_12_stone_id);
         vezes7p12Total = (EditText) findViewById(R.id.vezes_7_12_total_id);
-        vezes7p12Sharel = (EditText) findViewById(R.id.vezes_7_12_share_id);
-
+        vezes7p12Share = (EditText) findViewById(R.id.vezes_7_12_share_id);
 
         antecipacaoAtual = (EditText) findViewById(R.id.antecipacao_atual_id);
         antecipacaoStone = (EditText) findViewById(R.id.antecipacao_stone_id);
@@ -211,6 +209,12 @@ public class MainActivity extends AppCompatActivity {
         mensalidadeStone = (EditText) findViewById(R.id.mensalidade_stone_id);
         mensalidadeTotal = (EditText) findViewById(R.id.mensalidade_total_id);
         mensalidadeShare = (EditText) findViewById(R.id.mensalidade_share_id);
+
+        tpv = (EditText) findViewById(R.id.tpv_id);
+        validateInputIsNotNull(tpv);
+
+
+
 
         setEvents();
     }

@@ -201,7 +201,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/debito_share_id2"
+        app:layout_constraintTop_toBottomOf="@+id/tpv_id"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
@@ -297,7 +297,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_mensalidade_conta8" />
 
     <EditText
-        android:id="@+id/debito_share_id2"
+        android:id="@+id/tpv_id"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -306,7 +306,7 @@
         android:inputType="textPersonName"
         android:text="0"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/textView57"
+        app:layout_constraintStart_toEndOf="@+id/tpv_txt"
         app:layout_constraintTop_toBottomOf="@+id/divider11" />
 
     <EditText
@@ -865,7 +865,7 @@
         app:layout_constraintGuide_begin="380dp" />
 
     <TextView
-        android:id="@+id/textView57"
+        android:id="@+id/tpv_txt"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="100dp"
