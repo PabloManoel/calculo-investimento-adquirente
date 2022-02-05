@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void validateInputIsNotNull(EditText input){
         if (input.getText().toString().trim().length() == 0) {
-            input.setText("0");
+            input.setText("0.0");
         }
     }
 
