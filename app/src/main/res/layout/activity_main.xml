@@ -446,15 +446,6 @@
                         app:layout_constraintStart_toEndOf="@+id/antecipacao_share_id"
                         app:layout_constraintTop_toBottomOf="@+id/vezes_7_12_atual_id" />
 
-                    <View
-                        android:id="@+id/divider10"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="50dp"
-                        android:background="?android:attr/listDivider"
-                        app:layout_constraintTop_toBottomOf="@+id/conciliacao_vendas_txt11"
-                        tools:layout_editor_absoluteX="0dp" />
-
                     <TextView
                         android:id="@+id/txt_header_share_id"
                         android:layout_width="55dp"
