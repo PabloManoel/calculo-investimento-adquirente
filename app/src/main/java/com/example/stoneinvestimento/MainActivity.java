@@ -1,12 +1,14 @@
 package com.example.stoneinvestimento;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText mensalidadeShare;
     private EditText tpv;
     private ToggleButton shareType;
+
+    private TextView title_1;
+    private ConstraintLayout expandableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +112,22 @@ public class MainActivity extends AppCompatActivity {
 
         shareType = (ToggleButton) findViewById(R.id.share_type_toggle_id);
 
-
         tpv = (EditText) findViewById(R.id.tpv_id);
         validateInputIsNotNull(tpv);
+
+        title_1 = (TextView) findViewById(R.id.txt_title_1);
+        expandableLayout = (ConstraintLayout) findViewById((R.id.ExpandableLayout));
+
+        //------
+
+        title_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandableLayout.setVisibility(expandableLayout.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
+
+        //------
 
         setEvents();
     }
