@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView txt_title_banking_id;
     private TextView txt_title_payments_id;
 
+    private TextView txt_total_banking_id;
+    private TextView txt_total_payments_id;
+
     private ConstraintLayout body_banking_id;
     private ConstraintLayout body_payments_id;
 
@@ -118,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         txt_title_banking_id = (TextView) findViewById(R.id.txt_title_banking_id);
         txt_title_payments_id = (TextView) findViewById(R.id.txt_title_pagamento_id);
 
+        txt_total_banking_id = (TextView) findViewById(R.id.txt_total_banking_id);
+        txt_total_payments_id = (TextView) findViewById(R.id.txt_total_payments_id);
+
         body_banking_id = (ConstraintLayout) findViewById((R.id.banking_body_id));
         body_payments_id = (ConstraintLayout) findViewById((R.id.pagamentos_body_id));
 
@@ -164,6 +170,26 @@ public class MainActivity extends AppCompatActivity {
                 Arrays.stream(shareInputs).forEach(EditText::performClick);
             }
         });
+    }
+
+    private void refreshBankingTotal(){
+        Float totalValue = Float.parseFloat(mensalidadeContaTotal.getText().toString())
+                + Float.parseFloat(pixMensalTotal.getText().toString())
+                + Float.parseFloat(portalIntegradoTotal.getText().toString())
+                + Float.parseFloat(conciliacaoVendasTotal.getText().toString());
+
+        txt_total_banking_id.setText("Total = " + totalValue.toString());
+    }
+
+    private void refreshPaymentsTotal(){
+        Float totalValue = Float.parseFloat(debitoTotal.getText().toString())
+                + Float.parseFloat(creditoAVistaTotal.getText().toString())
+                + Float.parseFloat(vezes2p6Total.getText().toString())
+                + Float.parseFloat(vezes7p12Total.getText().toString())
+                + Float.parseFloat(antecipacaoTotal.getText().toString())
+                + Float.parseFloat(mensalidadeTotal.getText().toString());
+
+        txt_total_payments_id.setText("Total = " + totalValue.toString());
     }
 
     private void setMensalidadeContaEvent(){
@@ -423,11 +449,13 @@ public class MainActivity extends AppCompatActivity {
     private void comparePaymentAccounts(EditText tpv, EditText share, EditText current, EditText stone, EditText total){
         Float result = calculatePayments(tpv, share, current, stone);
         addResultToTotalField(result, total);
+        refreshPaymentsTotal();
     }
 
     private void compareBankingAccounts(EditText atual, EditText stone, EditText total){
         Float result = calculateBanking(atual, stone);
         addResultToTotalField(result, total);
+        refreshBankingTotal();
     }
 
     private void validateSubTotal(EditText subtotal){
