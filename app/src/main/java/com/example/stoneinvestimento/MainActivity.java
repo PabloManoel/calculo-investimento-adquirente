@@ -50,17 +50,28 @@ public class MainActivity extends AppCompatActivity {
     private EditText mensalidadeStone;
     private EditText mensalidadeTotal;
     private EditText mensalidadeShare;
+    private EditText seguroVidaAtual;
+    private EditText seguroVidaStone;
+    private EditText seguroVidaTotal;
+    private EditText seguroPatrimonialAtual;
+    private EditText seguroPatrimonialStone;
+    private EditText seguroPatrimonialTotal;
+
     private EditText tpv;
     private ToggleButton shareType;
 
     private TextView txt_title_banking_id;
     private TextView txt_title_payments_id;
+    private TextView txt_title_seguros_id;
 
     private TextView txt_total_banking_id;
     private TextView txt_total_payments_id;
+    private TextView txt_total_seguros_id;
+
 
     private ConstraintLayout body_banking_id;
     private ConstraintLayout body_payments_id;
+    private ConstraintLayout body_seguros_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,12 +131,23 @@ public class MainActivity extends AppCompatActivity {
 
         txt_title_banking_id = (TextView) findViewById(R.id.txt_title_banking_id);
         txt_title_payments_id = (TextView) findViewById(R.id.txt_title_pagamento_id);
+        txt_title_seguros_id = (TextView) findViewById(R.id.txt_title_seguros_id);
 
         txt_total_banking_id = (TextView) findViewById(R.id.txt_total_banking_id);
         txt_total_payments_id = (TextView) findViewById(R.id.txt_total_payments_id);
+        txt_total_seguros_id = (TextView) findViewById(R.id.txt_total_seguros_id);
 
-        body_banking_id = (ConstraintLayout) findViewById((R.id.banking_body_id));
-        body_payments_id = (ConstraintLayout) findViewById((R.id.pagamentos_body_id));
+        body_banking_id = (ConstraintLayout) findViewById(R.id.banking_body_id);
+        body_payments_id = (ConstraintLayout) findViewById(R.id.pagamentos_body_id);
+        body_seguros_id = (ConstraintLayout) findViewById(R.id.seguros_body_id);
+
+        seguroVidaAtual = (EditText) findViewById(R.id.vida_atual_id);
+        seguroVidaStone = (EditText) findViewById(R.id.vida_stone_id);
+        seguroVidaTotal = (EditText) findViewById(R.id.vida_total_id);
+
+        seguroPatrimonialAtual = (EditText) findViewById(R.id.patrimonial_atual_id);
+        seguroPatrimonialStone = (EditText) findViewById(R.id.patrimonial_stone_id);
+        seguroPatrimonialTotal = (EditText) findViewById(R.id.patrimonial_total_id);
 
         setEvents();
     }
@@ -147,6 +169,11 @@ public class MainActivity extends AppCompatActivity {
 
         setExpandadleHeaderTitleEvent(txt_title_banking_id, body_banking_id);
         setExpandadleHeaderTitleEvent(txt_title_payments_id, body_payments_id);
+        setExpandadleHeaderTitleEvent(txt_title_seguros_id, body_seguros_id);
+
+
+        setSeguroPatrimonialEvent();
+        setSeguroVidaEvent();
     }
 
     private void setExpandadleHeaderTitleEvent(TextView headerTitle, ConstraintLayout body){
@@ -190,6 +217,13 @@ public class MainActivity extends AppCompatActivity {
                 + Float.parseFloat(mensalidadeTotal.getText().toString());
 
         txt_total_payments_id.setText("Total = " + totalValue.toString());
+    }
+
+    private void refreshSegurosTotal(){
+        Float totalValue = Float.parseFloat(seguroVidaTotal.getText().toString())
+                + Float.parseFloat(seguroPatrimonialTotal.getText().toString());
+
+        txt_total_seguros_id.setText("Total = " + totalValue.toString());
     }
 
     private void setMensalidadeContaEvent(){
@@ -446,6 +480,52 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setSeguroVidaEvent() {
+        seguroVidaAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(seguroVidaAtual);
+                compareSegurosAccounts(seguroVidaAtual, seguroVidaStone, seguroVidaTotal);
+                validateSubTotal(seguroVidaTotal);
+            }
+        });
+
+        seguroVidaStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(seguroVidaStone);
+                compareSegurosAccounts(seguroVidaAtual, seguroVidaStone, seguroVidaTotal);
+                validateSubTotal(seguroVidaTotal);
+            }
+        });
+    }
+
+    private void setSeguroPatrimonialEvent() {
+        seguroPatrimonialAtual.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(seguroPatrimonialAtual);
+                compareSegurosAccounts(seguroPatrimonialAtual, seguroPatrimonialStone, seguroPatrimonialTotal);
+                validateSubTotal(seguroPatrimonialTotal);
+            }
+        });
+
+        seguroPatrimonialStone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(seguroPatrimonialStone);
+                compareSegurosAccounts(seguroPatrimonialAtual, seguroPatrimonialStone, seguroPatrimonialTotal);
+                validateSubTotal(seguroPatrimonialTotal);
+            }
+        });
+    }
+
+    private void compareSegurosAccounts(EditText current, EditText stone, EditText total){
+        Float result = calculateSeguros(current, stone);
+        addResultToTotalField(result, total);
+        refreshSegurosTotal();
+    }
+
     private void comparePaymentAccounts(EditText tpv, EditText share, EditText current, EditText stone, EditText total){
         Float result = calculatePayments(tpv, share, current, stone);
         addResultToTotalField(result, total);
@@ -492,6 +572,10 @@ public class MainActivity extends AppCompatActivity {
             return calculatePaymentsWithPercentShare(tpv, share, current, stone);
         }
 
+    }
+
+    private Float calculateSeguros(EditText current, EditText stone){
+        return Float.parseFloat(current.getText().toString()) - Float.parseFloat(stone.getText().toString());
     }
 
     private Float calculatePaymentsWithPercentShare(EditText tpv, EditText share, EditText current, EditText stone){
