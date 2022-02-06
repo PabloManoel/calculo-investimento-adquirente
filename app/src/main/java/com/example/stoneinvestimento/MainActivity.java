@@ -5,13 +5,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 
@@ -56,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText tpv;
     private ToggleButton shareType;
 
-    private TextView title_1;
-    private ConstraintLayout expandableLayout;
+    private TextView txt_title_banking_id;
+    private TextView txt_title_payments_id;
+
+    private ConstraintLayout body_banking_id;
+    private ConstraintLayout body_payments_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,19 +115,11 @@ public class MainActivity extends AppCompatActivity {
         tpv = (EditText) findViewById(R.id.tpv_id);
         validateInputIsNotNull(tpv);
 
-        title_1 = (TextView) findViewById(R.id.txt_title_1);
-        expandableLayout = (ConstraintLayout) findViewById((R.id.ExpandableLayout));
+        txt_title_banking_id = (TextView) findViewById(R.id.txt_title_banking_id);
+        txt_title_payments_id = (TextView) findViewById(R.id.txt_title_pagamento_id);
 
-        //------
-
-        title_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expandableLayout.setVisibility(expandableLayout.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
-            }
-        });
-
-        //------
+        body_banking_id = (ConstraintLayout) findViewById((R.id.banking_body_id));
+        body_payments_id = (ConstraintLayout) findViewById((R.id.pagamentos_body_id));
 
         setEvents();
     }
@@ -146,7 +138,19 @@ public class MainActivity extends AppCompatActivity {
         setMensalidadeEvent();
 
         setShareTypeEvent();
+
+        setExpandadleHeaderTitleEvent(txt_title_banking_id, body_banking_id);
+        setExpandadleHeaderTitleEvent(txt_title_payments_id, body_payments_id);
     }
+
+    private void setExpandadleHeaderTitleEvent(TextView headerTitle, ConstraintLayout body){
+        headerTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                body.setVisibility(body.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            }
+        });
+    };
 
     private void setShareTypeEvent(){
         shareType.setOnClickListener(new View.OnClickListener() {
