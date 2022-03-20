@@ -2,12 +2,8 @@ package com.example.stoneinvestimento.activity;
 
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import java.util.Arrays;
+import com.example.stoneinvestimento.dto.Payment;
 
 public class PaymentActivity {
 
@@ -18,14 +14,20 @@ public class PaymentActivity {
     private EditText antecipacao;
     private EditText mensalidade;
 
+    private Payment payment;
+
     private static String DEFAULT_VALUE = "0.0";
 
+    public PaymentActivity(){
+        payment = new Payment();
+    }
 
     public void setEvents(){
         debito.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(debito);
+                payment.setDebito(Float.parseFloat(debito.getText().toString()));
             }
         });
 
@@ -33,6 +35,7 @@ public class PaymentActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(creditoAVista);
+                payment.setDebito(Float.parseFloat(creditoAVista.getText().toString()));
             }
         });
 
@@ -40,6 +43,7 @@ public class PaymentActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(parcelamento2a6);
+                payment.setDebito(Float.parseFloat(parcelamento2a6.getText().toString()));
             }
         });
 
@@ -47,6 +51,7 @@ public class PaymentActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(parcelamento7a12);
+                payment.setDebito(Float.parseFloat(parcelamento7a12.getText().toString()));
             }
         });
 
@@ -54,6 +59,7 @@ public class PaymentActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(antecipacao);
+                payment.setDebito(Float.parseFloat(antecipacao.getText().toString()));
             }
         });
 
@@ -61,6 +67,7 @@ public class PaymentActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(mensalidade);
+                payment.setDebito(Float.parseFloat(mensalidade.getText().toString()));
             }
         });
     }
@@ -123,13 +130,7 @@ public class PaymentActivity {
         this.mensalidade = mensalidade;
     }
 
-    public Float calculateTotal(){
-        return Float.parseFloat(debito.getText().toString())
-                + Float.parseFloat(creditoAVista.getText().toString())
-                + Float.parseFloat(parcelamento2a6.getText().toString())
-                + Float.parseFloat(parcelamento7a12.getText().toString())
-                + Float.parseFloat(antecipacao.getText().toString())
-                + Float.parseFloat(mensalidade.getText().toString());
+    public Payment getPayment() {
+        return payment;
     }
-
 }

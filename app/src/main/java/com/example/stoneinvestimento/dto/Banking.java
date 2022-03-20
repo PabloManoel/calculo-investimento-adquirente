@@ -7,6 +7,13 @@ public class Banking {
     private Float portalIntegrado;
     private Float conciliacaoVendas;
 
+    public Banking(){
+        mensalidadeConta = new Float(0);
+        pixMensal = new Float(0);
+        portalIntegrado = new Float(0);
+        conciliacaoVendas = new Float(0);
+    }
+
     public Float getMensalidadeConta() {
         return mensalidadeConta;
     }
@@ -37,5 +44,12 @@ public class Banking {
 
     public void setConciliacaoVendas(Float conciliacaoVendas) {
         this.conciliacaoVendas = conciliacaoVendas;
+    }
+
+    public Float calculateTotal(){
+        return mensalidadeConta
+                + pixMensal
+                + portalIntegrado
+                + conciliacaoVendas;
     }
 }

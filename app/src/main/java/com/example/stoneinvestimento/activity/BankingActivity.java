@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.stoneinvestimento.dto.Banking;
+
 public class BankingActivity {
 
     private EditText mensalidadeConta;
@@ -13,34 +15,44 @@ public class BankingActivity {
     private EditText portalIntegrado;
     private EditText conciliacaoVendas;
 
+    private Banking banking;
+
     private static String DEFAULT_VALUE = "0.0";
+
+    public BankingActivity(){
+        banking = new Banking();
+    }
 
     public void setEvents() {
         mensalidadeConta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(mensalidadeConta);
+                banking.setMensalidadeConta(Float.parseFloat(mensalidadeConta.getText().toString()));
             }
         });
         pixMensal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(pixMensal);
+                banking.setPixMensal(Float.parseFloat(pixMensal.getText().toString()));
             }
+
         });
         portalIntegrado.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(portalIntegrado);
+                banking.setPortalIntegrado(Float.parseFloat(portalIntegrado.getText().toString()));
             }
         });
         conciliacaoVendas.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(conciliacaoVendas);
+                banking.setConciliacaoVendas(Float.parseFloat(conciliacaoVendas.getText().toString()));
             }
         });
-
     }
 
     private void validateInputIsNotNull(EditText input){
@@ -51,6 +63,10 @@ public class BankingActivity {
         } catch (Exception ex){
             System.err.println("Erro ao validar campo não nulo");
         }
+    }
+
+    public Banking getBanking(){
+        return banking;
     }
 
     public EditText getMensalidadeConta() {
@@ -84,16 +100,5 @@ public class BankingActivity {
     public void setConciliacaoVendas(EditText conciliacaoVendas) {
         this.conciliacaoVendas = conciliacaoVendas;
     }
-
-    public Float calculateTotal(){
-        return Float.parseFloat(mensalidadeConta.getText().toString())
-            + Float.parseFloat(pixMensal.getText().toString())
-            + Float.parseFloat(portalIntegrado.getText().toString())
-            + Float.parseFloat(conciliacaoVendas.getText().toString());
-    }
-
-
-
-
 
 }

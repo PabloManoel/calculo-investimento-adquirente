@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setEvents(){
-        setMensalidadeContaEvent(currentBankingActivity, stoneBankingActivity, totalBankingActivity);
+        setMensalidadeContaEvent();
         setPixMensalEvent();
         setPortalIntegradoEvent();
         setConciliacaoVendasEvent();
@@ -178,35 +178,22 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-    private Float refreshBankingTotal(){
-        Float totalValue = Float.parseFloat(totalBankingActivity.getMensalidadeConta().getText().toString())
-                + Float.parseFloat(totalBankingActivity.getPixMensal().getText().toString())
-                + Float.parseFloat(totalBankingActivity.getPortalIntegrado().getText().toString())
-                + Float.parseFloat(totalBankingActivity.getConciliacaoVendas().getText().toString());
+    private void refreshBankingTotal(){
+        Float totalValue = totalBankingActivity.getBanking().calculateTotal();
 
         txt_total_banking_id.setText("Total = " + totalValue.toString());
         refreshTotalResult();
-
-        return totalValue;
     }
 
-    private Float refreshPaymentsTotal(){
-        Float totalValue = Float.parseFloat(totalPaymentActivity.getDebito().getText().toString())
-                + Float.parseFloat(totalPaymentActivity.getCreditoAVista().getText().toString())
-                + Float.parseFloat(totalPaymentActivity.getParcelamento2a6().getText().toString())
-                + Float.parseFloat(totalPaymentActivity.getParcelamento7a12().getText().toString())
-                + Float.parseFloat(totalPaymentActivity.getAntecipacao().getText().toString())
-                + Float.parseFloat(totalPaymentActivity.getMensalidade().getText().toString());
+    private void refreshPaymentsTotal(){
+        Float totalValue = totalPaymentActivity.getPayment().calculateTotal();
 
         txt_total_payments_id.setText("Total = " + totalValue.toString());
         refreshTotalResult();
-
-        return totalValue;
     }
 
     private Float refreshSegurosTotal(){
-        Float totalValue = Float.parseFloat(totalSeguroActivity.getVida().getText().toString())
-                + Float.parseFloat(totalSeguroActivity.getPatrimonial().getText().toString());
+        Float totalValue = totalSeguroActivity.getSeguro().calculateTotal();
 
         txt_total_seguros_id.setText("Total = " + totalValue.toString());
         refreshTotalResult();
@@ -215,14 +202,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Float refreshTotalResult() {
-        Float totalResult = refreshBankingTotal() + refreshPaymentsTotal() + refreshSegurosTotal();
+        Float totalResult = totalPaymentActivity.getPayment().calculateTotal()
+        + totalSeguroActivity.getSeguro().calculateTotal()
+        + totalBankingActivity.getBanking().calculateTotal();
+
         txt_total_result_id.setText(totalResult.toString());
 
         return totalResult;
     }
 
-    private void setMensalidadeContaEvent(BankingActivity currentBankingActivity,
-                                          BankingActivity stoneBankingActivity, BankingActivity totalBankingActivity){
+    private void setMensalidadeContaEvent(){
 
         currentBankingActivity.getMensalidadeConta().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

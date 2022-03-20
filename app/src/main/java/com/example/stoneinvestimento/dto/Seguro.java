@@ -5,6 +5,11 @@ public class Seguro {
     private Float vida;
     private Float patrimonial;
 
+    public Seguro(){
+        vida = new Float(0);
+        patrimonial = new Float(0);
+    }
+
     public Float getVida() {
         return vida;
     }
@@ -20,4 +25,9 @@ public class Seguro {
     public void setPatrimonial(Float patrimonial) {
         this.patrimonial = patrimonial;
     }
+
+    public Float calculateTotal(){
+        return vida + patrimonial;
+    }
+
 }

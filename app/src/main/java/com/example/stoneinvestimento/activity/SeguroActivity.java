@@ -6,19 +6,31 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.stoneinvestimento.dto.Seguro;
+
 public class SeguroActivity {
 
     private EditText vida;
     private EditText patrimonial;
 
+    private Seguro seguro;
+
     private static String DEFAULT_VALUE = "0.0";
 
+    public SeguroActivity(){
+        seguro = new Seguro();
+    }
+
+    public Seguro getSeguro(){
+        return seguro;
+    }
 
     public void setEvents(){
         vida.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(vida);
+                seguro.setVida(Float.parseFloat(vida.getText().toString()));
             }
         });
 
@@ -26,6 +38,7 @@ public class SeguroActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 validateInputIsNotNull(patrimonial);
+                seguro.setPatrimonial(Float.parseFloat(patrimonial.getText().toString()));
             }
         });
     }
@@ -56,8 +69,4 @@ public class SeguroActivity {
         this.patrimonial = patrimonial;
     }
 
-    public Float calculateTotal(){
-        return Float.parseFloat(vida.getText().toString())
-                + Float.parseFloat(patrimonial.getText().toString());
-    }
 }

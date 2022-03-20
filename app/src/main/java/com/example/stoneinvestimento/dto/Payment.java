@@ -11,6 +11,17 @@ public class Payment {
     private Float antecipacao;
     private Float mensalidade;
 
+    public Payment(){
+        tpv = new Float(0);
+        share = new Float(0);
+        debito = new Float(0);
+        creditoAVista = new Float(0);
+        parcelamento2a6 = new Float(0);
+        parcelamento7a12 = new Float(0);
+        antecipacao = new Float(0);
+        mensalidade = new Float(0);
+    }
+
     public Float getTpv() {
         return tpv;
     }
@@ -73,5 +84,14 @@ public class Payment {
 
     public void setMensalidade(Float mensalidade) {
         this.mensalidade = mensalidade;
+    }
+
+    public Float calculateTotal(){
+        return debito
+                + creditoAVista
+                + parcelamento2a6
+                + parcelamento7a12
+                + antecipacao
+                + mensalidade;
     }
 }
