@@ -1,4 +1,4 @@
-package com.example.stoneinvestimento;
+package com.example.stoneinvestimento.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.example.stoneinvestimento.R;
 
 import java.util.Arrays;
 
