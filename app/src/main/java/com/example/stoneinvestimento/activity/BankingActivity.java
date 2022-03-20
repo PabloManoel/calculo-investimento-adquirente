@@ -1,5 +1,7 @@
 package com.example.stoneinvestimento.activity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,45 +26,57 @@ public class BankingActivity {
     }
 
     public void setEvents() {
-        mensalidadeConta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mensalidadeConta.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(mensalidadeConta);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 banking.setMensalidadeConta(Float.parseFloat(mensalidadeConta.getText().toString()));
             }
         });
-        pixMensal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        pixMensal.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(pixMensal);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 banking.setPixMensal(Float.parseFloat(pixMensal.getText().toString()));
             }
-
         });
-        portalIntegrado.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        portalIntegrado.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(portalIntegrado);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 banking.setPortalIntegrado(Float.parseFloat(portalIntegrado.getText().toString()));
             }
         });
-        conciliacaoVendas.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        conciliacaoVendas.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(conciliacaoVendas);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 banking.setConciliacaoVendas(Float.parseFloat(conciliacaoVendas.getText().toString()));
             }
         });
-    }
-
-    private void validateInputIsNotNull(EditText input){
-        try {
-            if (input.getText().toString().trim().length() == 0) {
-                input.setText(DEFAULT_VALUE);
-            }
-        } catch (Exception ex){
-            System.err.println("Erro ao validar campo não nulo");
-        }
     }
 
     public Banking getBanking(){

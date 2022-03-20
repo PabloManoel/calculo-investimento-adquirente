@@ -32,11 +32,11 @@
                     android:id="@+id/txt_title_banking_id"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:gravity="center_horizontal|center_vertical"
                     android:background="@drawable/back"
+                    android:gravity="center_horizontal|center_vertical"
                     android:text="BANKING"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/banking_header_id"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/banking_header_id" />
 
                 <TextView
@@ -1453,17 +1453,19 @@
 
                     <Button
                         android:id="@+id/btn_refresh_result"
-                        android:layout_width="45dp"
-                        android:layout_height="40dp"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center_horizontal|top"
                         android:text="↻"
                         android:textColor="@color/black"
-                        android:textSize="22sp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
                         app:backgroundTint="#D6D7D7"
                         app:layout_constraintStart_toEndOf="@+id/resultado_total_id"
-                        app:layout_constraintTop_toBottomOf="@+id/resultado_total_txt" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

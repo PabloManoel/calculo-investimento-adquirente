@@ -2,7 +2,10 @@ package com.example.stoneinvestimento;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -30,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout body_seguros_id;
 
     private TextView txt_total_result_id;
+    private Button btn_refresh_result;
+
+    private TextView resultado_atual_id;
+    private TextView resultado_stone_id;
+    private TextView resultado_total_id;
 
     PaymentActivity currentPaymentActivity = new PaymentActivity();
     PaymentActivity stonePaymentActivity = new PaymentActivity();
@@ -42,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
     SeguroActivity stoneSeguroActivity = new SeguroActivity();
     SeguroActivity totalSeguroActivity = new SeguroActivity();
 
+    private static String DEFAULT_VALUE = "0.0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        currentPaymentActivity.setMensalidade((EditText)findViewById(R.id.mensalidade_conta_atual_id));
+        currentPaymentActivity.setMensalidade((EditText)findViewById(R.id.mensalidade_atual_id));
         currentPaymentActivity.setDebito((EditText) findViewById(R.id.debito_atual_id));
         currentPaymentActivity.setCreditoAVista((EditText) findViewById(R.id.credito_a_vista_atual_id));
         currentPaymentActivity.setAntecipacao(findViewById(R.id.antecipacao_atual_id));
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.setParcelamento7a12((EditText) findViewById(R.id.vezes_7_12_atual_id));
         currentPaymentActivity.setEvents();
 
-        stonePaymentActivity.setMensalidade((EditText) findViewById(R.id.mensalidade_conta_stone_id));
+        stonePaymentActivity.setMensalidade((EditText) findViewById(R.id.mensalidade_stone_id));
         stonePaymentActivity.setDebito((EditText) findViewById(R.id.debito_stone_id));
         stonePaymentActivity.setCreditoAVista((EditText) findViewById(R.id.credito_a_vista_stone_id));
         stonePaymentActivity.setAntecipacao((EditText) findViewById(R.id.antecipacao_stone_id));
@@ -64,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.setParcelamento7a12((EditText) findViewById(R.id.vezes_7_12_stone_id));
         stonePaymentActivity.setEvents();
 
-        totalPaymentActivity.setMensalidade((EditText) findViewById(R.id.mensalidade_conta_total_id));
+        totalPaymentActivity.setMensalidade((EditText) findViewById(R.id.mensalidade_total_id));
         totalPaymentActivity.setDebito((EditText) findViewById(R.id.debito_total_id));
         totalPaymentActivity.setCreditoAVista((EditText) findViewById(R.id.credito_a_vista_total_id));
         totalPaymentActivity.setAntecipacao((EditText) findViewById(R.id.antecipacao_total_id));
@@ -80,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.setMensalidadeShare((EditText) findViewById(R.id.mensalidade_share_id));
         paymentShareActivity.setShareType((ToggleButton) findViewById(R.id.share_type_toggle_id));
         paymentShareActivity.setTpv((EditText) findViewById(R.id.tpv_id));
-
-        // TODO set events
+        // -- events ? //
 
         currentBankingActivity.setPixMensal((EditText) findViewById(R.id.pix_mensal_atual_id));
         currentBankingActivity.setPortalIntegrado((EditText) findViewById(R.id.portal_integrado_atual_id));
@@ -128,7 +136,12 @@ public class MainActivity extends AppCompatActivity {
         body_payments_id = (ConstraintLayout) findViewById(R.id.pagamentos_body_id);
         body_seguros_id = (ConstraintLayout) findViewById(R.id.seguros_body_id);
 
-        txt_total_result_id = (TextView) findViewById(R.id.resultado_total_txt);
+        txt_total_result_id = (TextView) findViewById(R.id.resultado_total_id);
+        btn_refresh_result = (Button) findViewById(R.id.btn_refresh_result);
+
+        resultado_atual_id = (TextView) findViewById(R.id.resultado_atual_id);
+        resultado_stone_id = (TextView) findViewById(R.id.resultado_stone_id);
+        resultado_total_id = (TextView) findViewById(R.id.resultado_total_id);
         setEvents();
     }
 
@@ -153,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSeguroPatrimonialEvent();
         setSeguroVidaEvent();
+
+        setButtonTotalEvent();
     }
 
     private void setExpandadleHeaderTitleEvent(TextView headerTitle, ConstraintLayout body){
@@ -180,42 +195,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshBankingTotal(){
         Float totalValue = totalBankingActivity.getBanking().calculateTotal();
-
         txt_total_banking_id.setText("Total = " + totalValue.toString());
-        refreshTotalResult();
     }
 
     private void refreshPaymentsTotal(){
         Float totalValue = totalPaymentActivity.getPayment().calculateTotal();
-
         txt_total_payments_id.setText("Total = " + totalValue.toString());
-        refreshTotalResult();
     }
 
-    private Float refreshSegurosTotal(){
+    private void refreshSegurosTotal(){
         Float totalValue = totalSeguroActivity.getSeguro().calculateTotal();
-
         txt_total_seguros_id.setText("Total = " + totalValue.toString());
-        refreshTotalResult();
-
-        return totalValue;
     }
 
-    private Float refreshTotalResult() {
-        Float totalResult = totalPaymentActivity.getPayment().calculateTotal()
-        + totalSeguroActivity.getSeguro().calculateTotal()
-        + totalBankingActivity.getBanking().calculateTotal();
-
-        txt_total_result_id.setText(totalResult.toString());
-
-        return totalResult;
-    }
 
     private void setMensalidadeContaEvent(){
 
         currentBankingActivity.getMensalidadeConta().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(currentBankingActivity.getMensalidadeConta());
                 compareBankingAccounts(currentBankingActivity.getMensalidadeConta(),
                         stoneBankingActivity.getMensalidadeConta(), totalBankingActivity.getMensalidadeConta());
                 validateSubTotal(totalBankingActivity.getMensalidadeConta());
@@ -225,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
         stoneBankingActivity.getMensalidadeConta().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(stoneBankingActivity.getMensalidadeConta());
                 compareBankingAccounts(currentBankingActivity.getMensalidadeConta(),
                         stoneBankingActivity.getMensalidadeConta(), totalBankingActivity.getMensalidadeConta());
                 validateSubTotal(totalBankingActivity.getMensalidadeConta());
@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
         currentBankingActivity.getPixMensal().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(currentBankingActivity.getPixMensal());
                 compareBankingAccounts(currentBankingActivity.getPixMensal(),
                         stoneBankingActivity.getPixMensal(), totalBankingActivity.getPixMensal());
                 validateSubTotal(totalBankingActivity.getPixMensal());
@@ -245,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
         stoneBankingActivity.getPixMensal().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull(stoneBankingActivity.getPixMensal());
                 compareBankingAccounts(currentBankingActivity.getPixMensal(),
                         stoneBankingActivity.getPixMensal(), totalBankingActivity.getPixMensal());
                 validateSubTotal(totalBankingActivity.getPixMensal());
@@ -256,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
         currentBankingActivity.getPortalIntegrado().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentBankingActivity.getPortalIntegrado() );
                 compareBankingAccounts(currentBankingActivity.getPortalIntegrado(),
                         stoneBankingActivity.getPortalIntegrado(), totalBankingActivity.getPortalIntegrado());
                 validateSubTotal(totalBankingActivity.getPortalIntegrado());
@@ -265,6 +268,8 @@ public class MainActivity extends AppCompatActivity {
         stoneBankingActivity.getPortalIntegrado().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stoneBankingActivity.getPortalIntegrado() );
+
                 compareBankingAccounts(currentBankingActivity.getPortalIntegrado(),
                         stoneBankingActivity.getPortalIntegrado(), totalBankingActivity.getPortalIntegrado());
                 validateSubTotal(totalBankingActivity.getPortalIntegrado());
@@ -276,6 +281,8 @@ public class MainActivity extends AppCompatActivity {
         currentBankingActivity.getConciliacaoVendas().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentBankingActivity.getConciliacaoVendas() );
+
                 compareBankingAccounts(currentBankingActivity.getConciliacaoVendas(),
                         stoneBankingActivity.getConciliacaoVendas(), totalBankingActivity.getConciliacaoVendas());
                 validateSubTotal(totalBankingActivity.getConciliacaoVendas());
@@ -285,6 +292,8 @@ public class MainActivity extends AppCompatActivity {
         stoneBankingActivity.getConciliacaoVendas().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stoneBankingActivity.getConciliacaoVendas() );
+
                 compareBankingAccounts(currentBankingActivity.getConciliacaoVendas(),
                         stoneBankingActivity.getConciliacaoVendas(), totalBankingActivity.getConciliacaoVendas());
                 validateSubTotal(totalBankingActivity.getConciliacaoVendas());
@@ -296,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.getDebito().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentPaymentActivity.getDebito() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getDebitoShare(), currentPaymentActivity.getDebito(),
                         stonePaymentActivity.getDebito(), totalPaymentActivity.getDebito());
                 validateSubTotal(totalPaymentActivity.getDebito());
@@ -305,6 +316,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getDebito().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getDebito() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getDebitoShare(), currentPaymentActivity.getDebito(),
                         stonePaymentActivity.getDebito(), totalPaymentActivity.getDebito());
                 validateSubTotal(totalPaymentActivity.getDebito());
@@ -314,6 +327,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getDebitoShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getDebitoShare() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getDebitoShare(), currentPaymentActivity.getDebito(),
                         stonePaymentActivity.getDebito(), totalPaymentActivity.getDebito());
                 validateSubTotal(totalPaymentActivity.getDebito());
@@ -325,6 +340,8 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.getCreditoAVista().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentPaymentActivity.getCreditoAVista() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getCreditoAVistaShare(),
                         currentPaymentActivity.getCreditoAVista(),
                         stonePaymentActivity.getCreditoAVista(), totalPaymentActivity.getCreditoAVista());
@@ -335,6 +352,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getCreditoAVista().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getCreditoAVista() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getCreditoAVistaShare(), currentPaymentActivity.getCreditoAVista(),
                         stonePaymentActivity.getCreditoAVista(), totalPaymentActivity.getCreditoAVista());
                 validateSubTotal(totalPaymentActivity.getCreditoAVista());
@@ -344,6 +363,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getCreditoAVistaShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getCreditoAVistaShare() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getCreditoAVistaShare(), currentPaymentActivity.getCreditoAVista(),
                         stonePaymentActivity.getCreditoAVista(), totalPaymentActivity.getCreditoAVista());
                 validateSubTotal(totalPaymentActivity.getCreditoAVista());
@@ -355,6 +376,8 @@ public class MainActivity extends AppCompatActivity {
         totalPaymentActivity.getParcelamento2a6().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( totalPaymentActivity.getParcelamento2a6() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento2a6Share(), totalPaymentActivity.getParcelamento2a6(),
                         stonePaymentActivity.getParcelamento2a6(), totalPaymentActivity.getParcelamento2a6());
                 validateSubTotal(totalPaymentActivity.getParcelamento2a6());
@@ -364,6 +387,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getParcelamento2a6().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getParcelamento2a6() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento2a6Share(), totalPaymentActivity.getParcelamento2a6(),
                         stonePaymentActivity.getParcelamento2a6(), totalPaymentActivity.getParcelamento2a6());
                 validateSubTotal(totalPaymentActivity.getParcelamento2a6());
@@ -373,6 +398,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getParcelamento2a6Share().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getParcelamento2a6Share() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento2a6Share(), totalPaymentActivity.getParcelamento2a6(),
                         stonePaymentActivity.getParcelamento2a6(), totalPaymentActivity.getParcelamento2a6());
                 validateSubTotal(totalPaymentActivity.getParcelamento2a6());
@@ -384,6 +411,8 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.getParcelamento7a12().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentPaymentActivity.getParcelamento7a12() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento7a12Share(), currentPaymentActivity.getParcelamento7a12(),
                         stonePaymentActivity.getParcelamento7a12(), totalPaymentActivity.getParcelamento7a12());
                 validateSubTotal(totalPaymentActivity.getParcelamento7a12());
@@ -393,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getParcelamento7a12().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getParcelamento7a12() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento7a12Share(), currentPaymentActivity.getParcelamento7a12(),
                         stonePaymentActivity.getParcelamento7a12(), totalPaymentActivity.getParcelamento7a12());
                 validateSubTotal(totalPaymentActivity.getParcelamento7a12());
@@ -402,6 +433,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getParcelamento7a12Share().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getParcelamento7a12Share() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento7a12Share(), currentPaymentActivity.getParcelamento7a12(),
                         stonePaymentActivity.getParcelamento7a12(), totalPaymentActivity.getParcelamento7a12());
                 validateSubTotal(totalPaymentActivity.getParcelamento7a12());
@@ -413,6 +446,8 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.getAntecipacao().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentPaymentActivity.getAntecipacao() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getAntecipacaoShare(), currentPaymentActivity.getAntecipacao(),
                         stonePaymentActivity.getAntecipacao(), totalPaymentActivity.getAntecipacao());
                 validateSubTotal(totalPaymentActivity.getAntecipacao());
@@ -422,6 +457,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getAntecipacao().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getAntecipacao() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getAntecipacaoShare(), currentPaymentActivity.getAntecipacao(),
                         stonePaymentActivity.getAntecipacao(), totalPaymentActivity.getAntecipacao());
                 validateSubTotal(totalPaymentActivity.getAntecipacao());
@@ -431,6 +468,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getAntecipacaoShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getAntecipacaoShare() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getAntecipacaoShare(), currentPaymentActivity.getAntecipacao(),
                         stonePaymentActivity.getAntecipacao(), totalPaymentActivity.getAntecipacao());
                 validateSubTotal(totalPaymentActivity.getAntecipacao());
@@ -442,6 +481,8 @@ public class MainActivity extends AppCompatActivity {
         currentPaymentActivity.getMensalidade().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentPaymentActivity.getMensalidade() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getMensalidadeShare(), currentPaymentActivity.getMensalidade(),
                         stonePaymentActivity.getMensalidade(), totalPaymentActivity.getMensalidade());
                 validateSubTotal(totalPaymentActivity.getMensalidade());
@@ -451,6 +492,8 @@ public class MainActivity extends AppCompatActivity {
         stonePaymentActivity.getMensalidade().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stonePaymentActivity.getMensalidade() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getMensalidadeShare(), currentPaymentActivity.getMensalidade(),
                         stonePaymentActivity.getMensalidade(), totalPaymentActivity.getMensalidade());
                 validateSubTotal(totalPaymentActivity.getMensalidade());
@@ -460,6 +503,8 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getMensalidadeShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getMensalidadeShare() );
+
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getMensalidadeShare(), currentPaymentActivity.getMensalidade(),
                         stonePaymentActivity.getMensalidade(), totalPaymentActivity.getMensalidade());
                 validateSubTotal(totalPaymentActivity.getMensalidade());
@@ -471,6 +516,8 @@ public class MainActivity extends AppCompatActivity {
         currentSeguroActivity.getVida().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentSeguroActivity.getVida() );
+
                 compareSegurosAccounts(currentSeguroActivity.getVida(),
                         stoneSeguroActivity.getVida(), totalSeguroActivity.getVida());
                 validateSubTotal(totalSeguroActivity.getVida());
@@ -480,6 +527,8 @@ public class MainActivity extends AppCompatActivity {
         stoneSeguroActivity.getVida().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stoneSeguroActivity.getVida() );
+
                 compareSegurosAccounts(currentSeguroActivity.getVida(),
                         stoneSeguroActivity.getVida(), totalSeguroActivity.getVida());
                 validateSubTotal(totalSeguroActivity.getVida());
@@ -491,6 +540,8 @@ public class MainActivity extends AppCompatActivity {
         currentSeguroActivity.getPatrimonial().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( currentSeguroActivity.getPatrimonial() );
+
                 compareSegurosAccounts(currentSeguroActivity.getPatrimonial(),
                         stoneSeguroActivity.getPatrimonial(), totalSeguroActivity.getPatrimonial());
                 validateSubTotal(totalSeguroActivity.getPatrimonial());
@@ -500,9 +551,32 @@ public class MainActivity extends AppCompatActivity {
         stoneSeguroActivity.getPatrimonial().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( stoneSeguroActivity.getPatrimonial() );
+
                 compareSegurosAccounts(currentSeguroActivity.getPatrimonial(),
                         stoneSeguroActivity.getPatrimonial(), totalSeguroActivity.getPatrimonial());
                 validateSubTotal(totalSeguroActivity.getPatrimonial());
+            }
+        });
+    }
+
+    private void setButtonTotalEvent() {
+        btn_refresh_result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Float currentTotal = currentBankingActivity.getBanking().calculateTotal()
+                        + currentPaymentActivity.getPayment().calculateTotal()
+                        + currentSeguroActivity.getSeguro().calculateTotal();
+
+                Float stoneTotal = stoneBankingActivity.getBanking().calculateTotal()
+                        + stonePaymentActivity.getPayment().calculateTotal()
+                        + stoneSeguroActivity.getSeguro().calculateTotal();
+
+                Float total = currentTotal - stoneTotal;
+
+                resultado_atual_id.setText(currentTotal.toString());
+                resultado_stone_id.setText(stoneTotal.toString());
+                resultado_total_id.setText(total.toString());
             }
         });
     }
@@ -603,4 +677,15 @@ public class MainActivity extends AppCompatActivity {
     private void addResultToTotalField(Float sum, EditText totalField){
         totalField.setText(sum.toString());
     }
+
+    private void validateInputIsNotNull(EditText input){
+        try {
+            if (input.getText().toString().trim().length() == 0) {
+                input.setText(DEFAULT_VALUE);
+            }
+        } catch (Exception ex){
+            System.err.println("Erro ao validar campo não nulo");
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.example.stoneinvestimento.activity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -22,64 +24,84 @@ public class PaymentActivity {
         payment = new Payment();
     }
 
-    public void setEvents(){
-        debito.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    public void setEvents() {
+        debito.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(debito);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 payment.setDebito(Float.parseFloat(debito.getText().toString()));
             }
         });
 
-        creditoAVista.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        creditoAVista.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(creditoAVista);
-                payment.setDebito(Float.parseFloat(creditoAVista.getText().toString()));
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                payment.setCreditoAVista(Float.parseFloat(creditoAVista.getText().toString()));
             }
         });
 
-        parcelamento2a6.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        parcelamento2a6.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(parcelamento2a6);
-                payment.setDebito(Float.parseFloat(parcelamento2a6.getText().toString()));
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                payment.setParcelamento2a6(Float.parseFloat(parcelamento2a6.getText().toString()));
             }
         });
 
-        parcelamento7a12.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        parcelamento7a12.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(parcelamento7a12);
-                payment.setDebito(Float.parseFloat(parcelamento7a12.getText().toString()));
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                payment.setParcelamento7a12(Float.parseFloat(parcelamento7a12.getText().toString()));
             }
         });
 
-        antecipacao.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        antecipacao.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(antecipacao);
-                payment.setDebito(Float.parseFloat(antecipacao.getText().toString()));
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                payment.setAntecipacao(Float.parseFloat(antecipacao.getText().toString()));
             }
         });
 
-        mensalidade.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mensalidade.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(mensalidade);
-                payment.setDebito(Float.parseFloat(mensalidade.getText().toString()));
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                payment.setMensalidade(Float.parseFloat(mensalidade.getText().toString()));
             }
         });
-    }
-
-    private void validateInputIsNotNull(EditText input){
-        try {
-            if (input.getText().toString().trim().length() == 0) {
-                input.setText(DEFAULT_VALUE);
-            }
-        } catch (Exception ex){
-            System.err.println("Erro ao validar campo não nulo");
-        }
     }
 
     public EditText getDebito() {

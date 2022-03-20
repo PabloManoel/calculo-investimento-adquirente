@@ -1,5 +1,7 @@
 package com.example.stoneinvestimento.activity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,36 +23,37 @@ public class SeguroActivity {
         seguro = new Seguro();
     }
 
-    public Seguro getSeguro(){
-        return seguro;
-    }
-
-    public void setEvents(){
-        vida.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    public void setEvents() {
+        vida.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(vida);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 seguro.setVida(Float.parseFloat(vida.getText().toString()));
             }
         });
 
-        patrimonial.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        patrimonial.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                validateInputIsNotNull(patrimonial);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 seguro.setPatrimonial(Float.parseFloat(patrimonial.getText().toString()));
             }
         });
+
     }
 
-    private void validateInputIsNotNull(EditText input){
-        try {
-            if (input.getText().toString().trim().length() == 0) {
-                input.setText(DEFAULT_VALUE);
-            }
-        } catch (Exception ex){
-            System.err.println("Erro ao validar campo não nulo");
-        }
+    public Seguro getSeguro(){
+        return seguro;
     }
 
     public EditText getVida() {
