@@ -221,12 +221,12 @@
                         android:enabled="false"
                         android:gravity="right"
                         android:inputType="numberDecimal"
+                        android:paddingRight="10dp"
                         android:text="0.0"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/mensalidade_conta_stone_id"
-                        app:layout_constraintTop_toBottomOf="@+id/total_txt"
-                        android:paddingRight="10dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/total_txt" />
 
 
                     <EditText
@@ -283,11 +283,11 @@
                         android:ems="10"
                         android:gravity="right"
                         android:inputType="numberDecimal"
+                        android:paddingRight="10dp"
                         android:text="0.0"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/txt_mensalidade_conta"
-                        app:layout_constraintTop_toBottomOf="@+id/atual_txt"
-                        android:paddingRight="10dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/atual_txt" />
 
 
                     <TextView
@@ -361,8 +361,6 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1175,7 +1173,7 @@
                         android:width="80dp"
                         android:height="0dp"
                         android:gravity="center_vertical"
-                        android:text="Pix mensal"
+                        android:text="Patrimonial"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txt_vida" />
@@ -1261,7 +1259,7 @@
                         android:width="80dp"
                         android:height="0dp"
                         android:gravity="center_vertical"
-                        android:text="Mesalidade da conta"
+                        android:text="Vida"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/seguro_blank_txt" />
@@ -1394,23 +1392,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/resultado_total_id"
-                        android:layout_width="55dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:gravity="right"
-                        android:inputType="numberDecimal"
-                        android:paddingRight="10dp"
-                        android:text="0.0"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toEndOf="@+id/resultado_stone_id"
-                        app:layout_constraintTop_toBottomOf="@+id/resultado_total_txt" />
-
-                    <EditText
                         android:id="@+id/resultado_atual_id"
                         android:layout_width="55dp"
                         android:layout_height="40dp"
@@ -1452,6 +1433,37 @@
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@+id/resultado_atual_id"
                         app:layout_constraintTop_toBottomOf="@+id/resultado_stone_txt" />
+
+                    <EditText
+                        android:id="@+id/resultado_total_id"
+                        android:layout_width="55dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:gravity="right"
+                        android:inputType="numberDecimal"
+                        android:paddingRight="10dp"
+                        android:text="0.0"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/resultado_stone_id"
+                        app:layout_constraintTop_toBottomOf="@+id/resultado_total_txt" />
+
+                    <Button
+                        android:id="@+id/btn_refresh_result"
+                        android:layout_width="45dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_horizontal|top"
+                        android:text="↻"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        app:backgroundTint="#D6D7D7"
+                        app:layout_constraintStart_toEndOf="@+id/resultado_total_id"
+                        app:layout_constraintTop_toBottomOf="@+id/resultado_total_txt" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

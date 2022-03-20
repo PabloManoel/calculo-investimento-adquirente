@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -68,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView txt_total_payments_id;
     private TextView txt_total_seguros_id;
 
-
     private ConstraintLayout body_banking_id;
     private ConstraintLayout body_payments_id;
     private ConstraintLayout body_seguros_id;
+
+    private TextView txt_total_result_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         seguroPatrimonialStone = (EditText) findViewById(R.id.patrimonial_stone_id);
         seguroPatrimonialTotal = (EditText) findViewById(R.id.patrimonial_total_id);
 
+        txt_total_result_id = (TextView) findViewById(R.id.resultado_total_txt);
         setEvents();
     }
 
@@ -170,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         setExpandadleHeaderTitleEvent(txt_title_banking_id, body_banking_id);
         setExpandadleHeaderTitleEvent(txt_title_payments_id, body_payments_id);
         setExpandadleHeaderTitleEvent(txt_title_seguros_id, body_seguros_id);
-
 
         setSeguroPatrimonialEvent();
         setSeguroVidaEvent();
@@ -199,16 +201,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void refreshBankingTotal(){
+    private Float refreshBankingTotal(){
         Float totalValue = Float.parseFloat(mensalidadeContaTotal.getText().toString())
                 + Float.parseFloat(pixMensalTotal.getText().toString())
                 + Float.parseFloat(portalIntegradoTotal.getText().toString())
                 + Float.parseFloat(conciliacaoVendasTotal.getText().toString());
 
         txt_total_banking_id.setText("Total = " + totalValue.toString());
+        refreshTotalResult();
+
+        return totalValue;
     }
 
-    private void refreshPaymentsTotal(){
+    private Float refreshPaymentsTotal(){
         Float totalValue = Float.parseFloat(debitoTotal.getText().toString())
                 + Float.parseFloat(creditoAVistaTotal.getText().toString())
                 + Float.parseFloat(vezes2p6Total.getText().toString())
@@ -217,13 +222,26 @@ public class MainActivity extends AppCompatActivity {
                 + Float.parseFloat(mensalidadeTotal.getText().toString());
 
         txt_total_payments_id.setText("Total = " + totalValue.toString());
+        refreshTotalResult();
+
+        return totalValue;
     }
 
-    private void refreshSegurosTotal(){
+    private Float refreshSegurosTotal(){
         Float totalValue = Float.parseFloat(seguroVidaTotal.getText().toString())
                 + Float.parseFloat(seguroPatrimonialTotal.getText().toString());
 
         txt_total_seguros_id.setText("Total = " + totalValue.toString());
+        refreshTotalResult();
+
+        return totalValue;
+    }
+
+    private Float refreshTotalResult() {
+        Float totalResult = refreshBankingTotal() + refreshPaymentsTotal() + refreshSegurosTotal();
+        txt_total_result_id.setText(totalResult.toString());
+
+        return totalResult;
     }
 
     private void setMensalidadeContaEvent(){
