@@ -33,6 +33,7 @@ public class SeguroActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(vida);
                 seguro.setVida(Float.parseFloat(vida.getText().toString()));
             }
         });
@@ -46,6 +47,7 @@ public class SeguroActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(patrimonial);
                 seguro.setPatrimonial(Float.parseFloat(patrimonial.getText().toString()));
             }
         });
@@ -72,4 +74,13 @@ public class SeguroActivity {
         this.patrimonial = patrimonial;
     }
 
+    private void validateInputIsNotNull(EditText input){
+        try {
+            if (input.getText().toString().trim().length() == 0) {
+                input.setText(DEFAULT_VALUE);
+            }
+        } catch (Exception ex){
+            System.err.println("Erro ao validar campo não nulo");
+        }
+    }
 }

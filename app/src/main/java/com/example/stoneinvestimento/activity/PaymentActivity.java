@@ -34,6 +34,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(debito);
                 payment.setDebito(Float.parseFloat(debito.getText().toString()));
             }
         });
@@ -47,6 +48,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(creditoAVista);
                 payment.setCreditoAVista(Float.parseFloat(creditoAVista.getText().toString()));
             }
         });
@@ -60,6 +62,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(parcelamento2a6);
                 payment.setParcelamento2a6(Float.parseFloat(parcelamento2a6.getText().toString()));
             }
         });
@@ -73,6 +76,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(parcelamento7a12);
                 payment.setParcelamento7a12(Float.parseFloat(parcelamento7a12.getText().toString()));
             }
         });
@@ -86,6 +90,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(antecipacao);
                 payment.setAntecipacao(Float.parseFloat(antecipacao.getText().toString()));
             }
         });
@@ -99,6 +104,7 @@ public class PaymentActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(mensalidade);
                 payment.setMensalidade(Float.parseFloat(mensalidade.getText().toString()));
             }
         });
@@ -154,5 +160,15 @@ public class PaymentActivity {
 
     public Payment getPayment() {
         return payment;
+    }
+
+    private void validateInputIsNotNull(EditText input){
+        try {
+            if (input.getText().toString().trim().length() == 0) {
+                input.setText(DEFAULT_VALUE);
+            }
+        } catch (Exception ex){
+            System.err.println("Erro ao validar campo não nulo");
+        }
     }
 }

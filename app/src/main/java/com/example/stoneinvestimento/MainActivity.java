@@ -18,6 +18,8 @@ import com.example.stoneinvestimento.activity.PaymentActivity;
 import com.example.stoneinvestimento.activity.PaymentShareActivity;
 import com.example.stoneinvestimento.activity.SeguroActivity;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     
     private TextView txt_title_banking_id;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.setMensalidadeShare((EditText) findViewById(R.id.mensalidade_share_id));
         paymentShareActivity.setShareType((ToggleButton) findViewById(R.id.share_type_toggle_id));
         paymentShareActivity.setTpv((EditText) findViewById(R.id.tpv_id));
+        paymentShareActivity.setEvents();
         // -- events ? //
 
         currentBankingActivity.setPixMensal((EditText) findViewById(R.id.pix_mensal_atual_id));
@@ -179,19 +182,9 @@ public class MainActivity extends AppCompatActivity {
         });
     };
 
-//    private void setShareTypeEvent(){
-//        shareType.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                EditText[] shareInputs = {debitoShare, creditoAVistaShare, vezes2p6Share, vezes7p12Share, antecipacaoShare, mensalidadeShare};
-//
-//                convertShareValues(shareInputs);
-//
-//                Arrays.stream(shareInputs).forEach(EditText::performClick);
-//            }
-//        });
-//    }
+    private void setShareTypeEvent(){
+
+    }
 
     private void refreshBankingTotal(){
         Float totalValue = totalBankingActivity.getBanking().calculateTotal();
@@ -334,6 +327,23 @@ public class MainActivity extends AppCompatActivity {
                 validateSubTotal(totalPaymentActivity.getDebito());
             }
         });
+
+        paymentShareActivity.getDebitoShare().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull( paymentShareActivity.getDebitoShare() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getDebitoShare(), currentPaymentActivity.getDebito(),
+                        stonePaymentActivity.getDebito(), totalPaymentActivity.getDebito());
+                validateSubTotal(totalPaymentActivity.getDebito());
+            }
+        });
     }
 
     private void setCreditAtSightEvent(){
@@ -363,6 +373,23 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getCreditoAVistaShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getCreditoAVistaShare() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getCreditoAVistaShare(), currentPaymentActivity.getCreditoAVista(),
+                        stonePaymentActivity.getCreditoAVista(), totalPaymentActivity.getCreditoAVista());
+                validateSubTotal(totalPaymentActivity.getCreditoAVista());
+            }
+        });
+
+        paymentShareActivity.getCreditoAVistaShare().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 validateInputIsNotNull( paymentShareActivity.getCreditoAVistaShare() );
 
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getCreditoAVistaShare(), currentPaymentActivity.getCreditoAVista(),
@@ -405,6 +432,23 @@ public class MainActivity extends AppCompatActivity {
                 validateSubTotal(totalPaymentActivity.getParcelamento2a6());
             }
         });
+
+        paymentShareActivity.getParcelamento2a6Share().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull( paymentShareActivity.getParcelamento2a6Share() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento2a6Share(), totalPaymentActivity.getParcelamento2a6(),
+                        stonePaymentActivity.getParcelamento2a6(), totalPaymentActivity.getParcelamento2a6());
+                validateSubTotal(totalPaymentActivity.getParcelamento2a6());
+            }
+        });
     }
 
     private void setTimes7p12Event(){
@@ -433,6 +477,23 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getParcelamento7a12Share().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getParcelamento7a12Share() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento7a12Share(), currentPaymentActivity.getParcelamento7a12(),
+                        stonePaymentActivity.getParcelamento7a12(), totalPaymentActivity.getParcelamento7a12());
+                validateSubTotal(totalPaymentActivity.getParcelamento7a12());
+            }
+        });
+
+        paymentShareActivity.getParcelamento7a12Share().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 validateInputIsNotNull( paymentShareActivity.getParcelamento7a12Share() );
 
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getParcelamento7a12Share(), currentPaymentActivity.getParcelamento7a12(),
@@ -475,6 +536,23 @@ public class MainActivity extends AppCompatActivity {
                 validateSubTotal(totalPaymentActivity.getAntecipacao());
             }
         });
+
+        paymentShareActivity.getAntecipacaoShare().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull( paymentShareActivity.getAntecipacaoShare() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getAntecipacaoShare(), currentPaymentActivity.getAntecipacao(),
+                        stonePaymentActivity.getAntecipacao(), totalPaymentActivity.getAntecipacao());
+                validateSubTotal(totalPaymentActivity.getAntecipacao());
+            }
+        });
     }
 
     private void setMensalidadeEvent(){
@@ -503,6 +581,23 @@ public class MainActivity extends AppCompatActivity {
         paymentShareActivity.getMensalidadeShare().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+                validateInputIsNotNull( paymentShareActivity.getMensalidadeShare() );
+
+                comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getMensalidadeShare(), currentPaymentActivity.getMensalidade(),
+                        stonePaymentActivity.getMensalidade(), totalPaymentActivity.getMensalidade());
+                validateSubTotal(totalPaymentActivity.getMensalidade());
+            }
+        });
+
+        paymentShareActivity.getMensalidadeShare().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
                 validateInputIsNotNull( paymentShareActivity.getMensalidadeShare() );
 
                 comparePaymentAccounts(paymentShareActivity.getTpv(), paymentShareActivity.getMensalidadeShare(), currentPaymentActivity.getMensalidade(),
@@ -651,27 +746,6 @@ public class MainActivity extends AppCompatActivity {
         Float stoneValue = (Float.parseFloat(stone.getText().toString()) * shareValue) / 100;
 
         return currentValue - stoneValue;
-    }
-
-    private void convertShareValues(EditText[] shareInputs){
-        Float newValue;
-        for (EditText share: shareInputs){
-            if (paymentShareActivity.getShareType().isChecked()){
-                newValue = convertPercentShareToNumeric(share, paymentShareActivity.getTpv());
-                share.setText(newValue.toString());
-            } else {
-                newValue = convertNumericShareToPercent(share, paymentShareActivity.getTpv());
-                share.setText(newValue.toString());
-            }
-        }
-    }
-
-    private Float convertPercentShareToNumeric(EditText share, EditText tpv){
-        return (Float.parseFloat(paymentShareActivity.getTpv().getText().toString()) * Float.parseFloat(share.getText().toString()) ) / 100;
-    }
-
-    private Float convertNumericShareToPercent(EditText share, EditText tpv){
-        return (Float.parseFloat(share.getText().toString()) * 100) / Float.parseFloat(paymentShareActivity.getTpv().getText().toString());
     }
 
     private void addResultToTotalField(Float sum, EditText totalField){

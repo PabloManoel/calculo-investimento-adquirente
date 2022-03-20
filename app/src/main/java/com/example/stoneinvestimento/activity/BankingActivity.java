@@ -35,6 +35,7 @@ public class BankingActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(mensalidadeConta);
                 banking.setMensalidadeConta(Float.parseFloat(mensalidadeConta.getText().toString()));
             }
         });
@@ -48,6 +49,7 @@ public class BankingActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(pixMensal);
                 banking.setPixMensal(Float.parseFloat(pixMensal.getText().toString()));
             }
         });
@@ -61,6 +63,7 @@ public class BankingActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(portalIntegrado);
                 banking.setPortalIntegrado(Float.parseFloat(portalIntegrado.getText().toString()));
             }
         });
@@ -74,6 +77,7 @@ public class BankingActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                validateInputIsNotNull(conciliacaoVendas);
                 banking.setConciliacaoVendas(Float.parseFloat(conciliacaoVendas.getText().toString()));
             }
         });
@@ -114,5 +118,16 @@ public class BankingActivity {
     public void setConciliacaoVendas(EditText conciliacaoVendas) {
         this.conciliacaoVendas = conciliacaoVendas;
     }
+
+    private void validateInputIsNotNull(EditText input){
+        try {
+            if (input.getText().toString().trim().length() == 0) {
+                input.setText(DEFAULT_VALUE);
+            }
+        } catch (Exception ex){
+            System.err.println("Erro ao validar campo não nulo");
+        }
+    }
+
 
 }
