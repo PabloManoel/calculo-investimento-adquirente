@@ -34,12 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout body_payments_id;
     private ConstraintLayout body_seguros_id;
 
-    private TextView txt_total_result_id;
     private Button btn_refresh_result;
 
-    private TextView resultado_atual_id;
-    private TextView resultado_stone_id;
-    private TextView resultado_total_id;
+    private EditText resultado_atual_id;
+    private EditText resultado_stone_id;
+    private EditText resultado_total_id;
 
     PaymentActivity currentPaymentActivity = new PaymentActivity();
     PaymentActivity stonePaymentActivity = new PaymentActivity();
@@ -139,12 +138,11 @@ public class MainActivity extends AppCompatActivity {
         body_payments_id = (ConstraintLayout) findViewById(R.id.pagamentos_body_id);
         body_seguros_id = (ConstraintLayout) findViewById(R.id.seguros_body_id);
 
-        txt_total_result_id = (TextView) findViewById(R.id.resultado_total_id);
         btn_refresh_result = (Button) findViewById(R.id.btn_refresh_result);
 
-        resultado_atual_id = (TextView) findViewById(R.id.resultado_atual_id);
-        resultado_stone_id = (TextView) findViewById(R.id.resultado_stone_id);
-        resultado_total_id = (TextView) findViewById(R.id.resultado_total_id);
+        resultado_atual_id = (EditText) findViewById(R.id.resultado_atual_id);
+        resultado_stone_id = (EditText) findViewById(R.id.resultado_stone_id);
+        resultado_total_id = (EditText) findViewById(R.id.resultado_total_id);
         setEvents();
     }
 
@@ -672,6 +670,11 @@ public class MainActivity extends AppCompatActivity {
                 resultado_atual_id.setText(currentTotal.toString());
                 resultado_stone_id.setText(stoneTotal.toString());
                 resultado_total_id.setText(total.toString());
+                validateSubTotal(resultado_total_id);
+                validateSubTotal(resultado_stone_id);
+                validateSubTotal(resultado_atual_id);
+
+
             }
         });
     }
